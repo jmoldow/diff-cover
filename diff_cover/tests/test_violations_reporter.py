@@ -411,7 +411,7 @@ class Pep8QualityReporterTest(unittest.TestCase):
 
         # When the user provides us with a pre-generated pep8 report
         # then use that instead of calling pep8 directly.
-        pep8_reports = [
+        pycodestyle_reports = [
             BytesIO(('\n' + dedent("""
                 path/to/file.py:1:17: E231 whitespace
                 path/to/file.py:3:13: E225 whitespace
@@ -425,7 +425,7 @@ class Pep8QualityReporterTest(unittest.TestCase):
         ]
 
         # Parse the report
-        quality = QualityReporter(pep8_driver, reports=pep8_reports)
+        quality = QualityReporter(pep8_driver, reports=pycodestyle_reports)
 
         # Measured_lines is undefined for
         # a quality reporter since all lines are measured

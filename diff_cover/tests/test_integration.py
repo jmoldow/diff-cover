@@ -382,7 +382,14 @@ class DiffQualityIntegrationTest(ToolsIntegrationBase):
 
         # Expect an error
         with self.assertRaises(CommandError):
-            main(['diff-quality', '--violations', 'pep8'])
+            main(['diff-quality', '--violations', 'pycodestyle'])
+
+    def test_added_file_pycodestyle_html(self):
+        self._check_html_report(
+            'git_diff_violations.txt',
+            'pycodestyle_violations_report.html',
+            ['diff-quality', '--violations=pycodestyle']
+        )
 
     def test_added_file_pep8_html(self):
         self._check_html_report(
@@ -424,8 +431,8 @@ class DiffQualityIntegrationTest(ToolsIntegrationBase):
     def test_html_with_external_css(self):
         temp_dir = self._check_html_report(
             'git_diff_violations.txt',
-            'pep8_violations_report_external_css.html',
-            ['diff-quality', '--violations=pep8'],
+            'pycodestyle_violations_report_external_css.html',
+            ['diff-quality', '--violations=pycodestyle'],
             css_file='external_style.css'
         )
         self.assertTrue(os.path.exists(os.path.join(temp_dir, 'external_style.css')))
@@ -483,6 +490,15 @@ class DiffQualityIntegrationTest(ToolsIntegrationBase):
             ['diff-quality', '--violations=pylint'],
         )
 
+    def test_pre_generated_pycodestyle_report(self):
+
+        # Pass in a pre-generated pep8 report instead of letting
+        # the tool call pep8 itself.
+        self._check_console_report(
+            'git_diff_violations.txt',
+            'pep8_violations_report.txt',
+            ['diff-quality', '--violations=pycodestyle', 'pycodestyle_report.txt']
+
     def test_pre_generated_pep8_report(self):
 
         # Pass in a pre-generated pep8 report instead of letting
@@ -490,7 +506,7 @@ class DiffQualityIntegrationTest(ToolsIntegrationBase):
         self._check_console_report(
             'git_diff_violations.txt',
             'pep8_violations_report.txt',
-            ['diff-quality', '--violations=pep8', 'pep8_report.txt']
+            ['diff-quality', '--violations=pep8', 'pycodestyle_report.txt']
         )
 
     def test_pre_generated_pyflakes_report(self):

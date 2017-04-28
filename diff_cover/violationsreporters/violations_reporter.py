@@ -184,6 +184,14 @@ class XmlCoverageReporter(BaseViolationReporter):
         self._cache_file(src_path)
         return self._info_cache[src_path][1]
 
+pycodestyle_driver = RegexBasedDriver(
+    name='pycodestyle',
+    supported_extensions=['py'],
+    command=['pycodestyle'],
+    expression=r'^([^:]+):(\d+).*([EW]\d{3}.*)$',
+    command_to_check_install=['pycodestyle', '--version']
+)
+
 pep8_driver = RegexBasedDriver(
     name='pep8',
     supported_extensions=['py'],
@@ -207,7 +215,7 @@ pyflakes_driver = RegexBasedDriver(
     Report Flake8 violations.
 
     Flake8 warning/error codes:
-        E***/W***: pep8 errors and warnings
+        E***/W***: pycodestyle errors and warnings
         F***: pyflakes codes
         C9**: mccabe complexity plugin
         N8**: pep8-naming plugin
