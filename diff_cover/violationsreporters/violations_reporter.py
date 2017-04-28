@@ -192,6 +192,14 @@ pep8_driver = RegexBasedDriver(
     command_to_check_install=['pep8', '--version']
 )
 
+pycodestyle_driver = RegexBasedDriver(
+    name='pep8',
+    supported_extensions=['py'],
+    command=['pycodestyle'],
+    expression=r'^([^:]+):(\d+).*([EW]\d{3}.*)$',
+    command_to_check_install=['pycodestyle', '--version']
+)
+
 pyflakes_driver = RegexBasedDriver(
     name='pyflakes',
     supported_extensions=['py'],
@@ -207,7 +215,7 @@ pyflakes_driver = RegexBasedDriver(
     Report Flake8 violations.
 
     Flake8 warning/error codes:
-        E***/W***: pep8 errors and warnings
+        E***/W***: pycodestyle errors and warnings
         F***: pyflakes codes
         C9**: mccabe complexity plugin
         N8**: pep8-naming plugin

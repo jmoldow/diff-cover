@@ -22,11 +22,12 @@ from diff_cover.report_generator import (
 from diff_cover.violationsreporters.base import QualityReporter
 from diff_cover.violationsreporters.violations_reporter import (
     XmlCoverageReporter,
-    flake8_driver, pyflakes_driver, pep8_driver, PylintDriver,
-    jshint_driver, eslint_driver
+    flake8_driver, pyflakes_driver, pycodestyle_driver, pep8_driver,
+    PylintDriver, jshint_driver, eslint_driver
 )
 
 QUALITY_DRIVERS = {
+    'pycodestyle': pycodestyle_driver,
     'pep8': pep8_driver,
     'pyflakes': pyflakes_driver,
     'pylint': PylintDriver(),
@@ -129,7 +130,7 @@ def parse_quality_args(argv):
     valid options:
 
         {
-            'violations': pep8 | pyflakes | flake8 | pylint | ...,
+            'violations': pycodestyle | pyflakes | flake8 | pylint | ...,
             'html_report': None | HTML_REPORT,
             'external_css_file': None | CSS_FILE,
         }
